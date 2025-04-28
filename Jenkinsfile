@@ -39,7 +39,7 @@ stage('Build Docker Image') {
         script {
             echo 'Building Docker image...'
             sh "docker build -t naresh3333/nodejs-app:${BUILD_NUMBER} ."
-             sh "docker push naresh3333/nodejs-app:${BUILD_NUMBER}"
+             //sh "docker push naresh3333/nodejs-app:${BUILD_NUMBER}"
         }
     }
 }
