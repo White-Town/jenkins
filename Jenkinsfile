@@ -25,7 +25,6 @@ pipeline {
             steps {
                 echo 'Building the Node.js application...'
                 sh 'npm install'         // Installs all Node.js dependencies
-                sh 'npm run build'      // Runs build script if defined in package.json
             }
         }
 
