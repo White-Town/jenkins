@@ -34,15 +34,15 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    echo 'Building Docker image...'
-                    sh 'docker build -t ${DOCKER_IMAGE} .'
-                    sh 'docker push ${DOCKER_IMAGE}'
-                }
-            }
+stage('Build Docker Image') {
+    steps {
+        script {
+            echo 'Building Docker image...'
+            sh "docker build -t naresh3333/nodejs-app:${BUILD_NUMBER} ."
+            sh "docker push naresh3333/nodejs-app:${BUILD_NUMBER}"
         }
+    }
+}
 
         stage('Deploy to Prod Env') {
             steps {
