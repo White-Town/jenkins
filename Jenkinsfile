@@ -44,13 +44,17 @@ stage('Build Docker Image') {
     }
 }
 
-        stage('Deploy to Prod Env') {
-            steps {
-                echo 'Deploying to production environment...'
-                script {
-                    sh 'docker run -d -p 80:3000 --name ${APP_NAME}-prod ${DOCKER_IMAGE}'
-                }
-            }
+stage('Deploy to Prod Env') {
+    steps {
+        script {
+            echo 'Deploying to production environment...'
+            // Stop and remove any existing container
+            sh 'docker stop nodejs-app-prod || true'
+            sh 'docker rm nodejs-app-prod || true'
+            // Run new container
+            sh "docker run -d -p 80:3000 --name nodejs-app-prod naresh3333/nodejs-app:${BUILD_NUMBER}"
         }
+    }
+}
     }
 }
