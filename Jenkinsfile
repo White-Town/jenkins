@@ -52,7 +52,7 @@ stage('Deploy to Prod Env') {
             sh 'docker stop nodejs-app-prod || true'
             sh 'docker rm nodejs-app-prod || true'
             // Run new container
-            sh "docker run -d -p 80:3000 --name nodejs-app-prod naresh3333/nodejs-app:${BUILD_NUMBER}"
+            sh "docker run -d -p 8082:3000 --name nodejs-app-prod naresh3333/nodejs-app:${BUILD_NUMBER}"
         }
     }
 }
