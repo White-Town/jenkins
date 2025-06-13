@@ -39,22 +39,20 @@ stage('Build Docker Image') {
         script {
             echo 'Building Docker image...'
             sh "docker build -t naresh3333/nodejs-app:${BUILD_NUMBER} ."
-             //sh "docker push naresh3333/nodejs-app:${BUILD_NUMBER}"
         }
     }
 }
 
-stage('Push Docker Image in dockerhub') {
-    steps{
-                    withDockerRegistry([credentialsId: 'dockerhubcredentials', url: '']){
+stage('Push Docker Image to Docker Hub') {
+    steps {
         script {
-                sh '''
-                docker push $naresh3333/nodejs-app:${BUILD_NUMBER}
-                '''
+            withDockerRegistry([credentialsId: 'dockerhubcredentials', url: '']) {
+                sh "docker push naresh3333/nodejs-app:${BUILD_NUMBER}"
             }
         }
     }
 }
+
 
 stage('Deploy to Prod Env') {
     steps {
