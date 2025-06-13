@@ -44,6 +44,19 @@ stage('Build Docker Image') {
     }
 }
 
+stage('Push Docker Image in dockerhub'){
+    steps{
+        script {
+            echo "pushing file in the docker hub.."
+            withDockerRegistry([credentialsId: 'dockerhubcredentials', url: '']){
+                sh " 
+                docker push $naresh3333/nodejs-app:${BUILD_NUMBER}
+                "
+            }
+        }
+    }
+}
+
 stage('Deploy to Prod Env') {
     steps {
         script {
@@ -57,4 +70,50 @@ stage('Deploy to Prod Env') {
     }
 }
     }
+    post{
+
+                always {
+
+                    mail to: 'nareshbc5555@gmail.com',
+
+                    subject: "Job '${JOB_NAME}' (${BUILD_NUMBER}) status",
+
+                    body: "Please go to ${BUILD_URL} and verify the build"
+
+                }
+ 
+                success {
+
+                    mail bcc: '', body: """Hi Team,
+
+                    Build #$BUILD_NUMBER is successful, please go through the url
+
+                    $BUILD_URL
+
+                    and verify the details.
+
+                    Regards,
+
+                    DevOps Team""", cc: '', from: '', replyTo: '', subject: 'BUILD SUCCESS NOTIFICATION', to: 'nareshbc5555@gmail.com'
+
+                }
+ 
+                failure {
+
+                        mail bcc: '', body: """Hi Team,
+
+                        Build #$BUILD_NUMBER is unsuccessful, please go through the url
+
+                        $BUILD_URL
+
+                        and verify the details.
+
+                        Regards,
+
+                        DevOps Team""", cc: '', from: '', replyTo: '', subject: 'BUILD FAILED NOTIFICATION', to: 'nareshbc5555@gmail.com'
+
+                }
+
+         }
+ 
 }
