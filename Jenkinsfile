@@ -38,7 +38,7 @@ stage('Build Docker Image') {
     steps {
         script {
             echo 'Building Docker image...'
-            sh "docker build -t naresh3333/nodejs-app:${BUILD_NUMBER} ."
+            sh "docker build -t naresh5555/nodejs-app:${BUILD_NUMBER} ."
         }
     }
 }
@@ -47,7 +47,7 @@ stage('Push Docker Image to Docker Hub') {
     steps {
         script {
             withDockerRegistry([credentialsId: 'dockerhubcredentials', url: '']) {
-                sh "docker push naresh3333/nodejs-app:${BUILD_NUMBER}"
+                sh "docker push naresh5555/nodejs-app:${BUILD_NUMBER}"
             }
         }
     }
