@@ -44,10 +44,10 @@ stage('Build Docker Image') {
     }
 }
 
-stage('Push Docker Image in dockerhub'){
+stage('Push Docker Image in dockerhub') {
     steps{
+                    withDockerRegistry([credentialsId: 'dockerhubcredentials', url: '']){
         script {
-            withDockerRegistry([credentialsId: 'dockerhubcredentials', url: '']){
                 sh '''
                 docker push $naresh3333/nodejs-app:${BUILD_NUMBER}
                 '''
